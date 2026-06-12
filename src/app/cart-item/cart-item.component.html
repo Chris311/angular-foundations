@@ -1,0 +1,21 @@
+<div class="product">
+    <img [src]="getImageUrl(product())" [alt]="product().name">
+    <!-- Diese Zeile kann man auch in eine Methode auslagern, siehe oben <img [src]="'/images/robot-parts/' + (product()).imageName" [alt]="(product()).name"> -->
+    <!-- Das obere ist die Abkürzung für <img src="{{ '/images/robot-parts/' + (product()).imageName }}" alt="{{(product()).name}}"> -->
+    <!-- Square-Brackets sind one-way binging, d.h. die Daten fließen nur von der Komponente in die Vorlage. Das heißt, wenn sich der Wert von (product()).imageName ändert, wird das Bild automatisch aktualisiert. Wenn Sie jedoch versuchen würden, den Wert von (product()).imageName in der Vorlage zu ändern, würde dies nicht funktionieren, da es sich um eine Einwegbindung handelt. -->
+    <div class="details">
+        <div>
+            <h2>{{ product().name }}</h2>
+            <p>{{ product().description }}</p>
+            <p>Part Type: {{ product().category }}</p>
+        </div>
+    </div>
+    <div class="price">
+        @if (product().discount > 0) {
+        <p>{{ product().price * (1 - product().discount) | currency }} (Sale)</p>
+        } @else {
+        <p>{{ product().price | currency }}</p>
+        }
+        <button class="cta" (click)="removeFromCart()">Remove</button>
+    </div>
+</div>
